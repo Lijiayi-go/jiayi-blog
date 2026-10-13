@@ -1,0 +1,12 @@
+{
+  "name": "jiayi-blog",
+  "version": "1.0.0",
+  "description": "李嘉翊的个人博客（含「小嘉翊」AI 问答后端）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
