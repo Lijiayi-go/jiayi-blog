@@ -25,15 +25,25 @@
       .join("；");
     const skills = (window.SKILLS || []).map((s) => (typeof s === "string" ? s : s.name)).join("、");
     const projs = (window.PROJECTS || []).map((p) => p.name).join("、");
+    const friends = (window.FRIENDS || [])
+      .map((f) => {
+        const detail = [f.realName, f.school, f.degree, f.major, f.direction]
+          .filter(Boolean)
+          .join("，");
+        return `${f.nickname}（${detail}；${f.note}）`;
+      })
+      .join("；\n");
     return (
       `你是「小嘉翊」，是「${window.SITE.name}」个人博客的 AI 助手，负责接待访客。\n` +
       `你可以基于以下真实信息回答关于博主的问题：\n` +
       `- 姓名：${window.SITE.name}；定位：${window.SITE.role}；所在地：${window.SITE.location}\n` +
-      `- 教育经历：${edu || "暂无"}\n` +
+      `- 教育经历：${edu || "暂无"}（博主已毕业，是 2026 届毕业生，不是在校生）\n` +
       `- 技能：${skills || "暂无"}\n` +
       `- 项目：${projs || "暂无"}\n` +
-      `要求：回答简洁友好、用中文；只基于以上信息作答，不要编造博主没有的经历；` +
-      `超出这些信息的问题可以友好闲聊或礼貌说明你不知道。`
+      `- 博主的好朋友：\n${friends || "暂无"}\n` +
+      `要求：回答简洁友好、用中文；只基于以上信息作答，不要编造博主没有的经历或好友；` +
+      `当访客问到上述任意一个好友的昵称（如阿鼠、ff/峰峰、jk、阿闵、帅夫、尧子）时，` +
+      `要介绍该好友并说明是博主的好朋友；对于信息里没有的内容，礼貌说明你不知道，绝不瞎编。`
     );
   }
 

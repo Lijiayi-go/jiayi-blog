@@ -4,7 +4,7 @@
 
 const SITE = {
   name: "李嘉翊",
-  role: "本科生 · 开发者",
+  role: "后端开发 · 开发者",
   location: "海南 · 三亚",
   email: "18842096211@163.com",
   github: "https://github.com/Lijiayi-go",
@@ -18,7 +18,7 @@ const EDUCATION = [
     degree: "本科",
     major: "数据科学与大数据技术",
     period: "2022 – 2026",
-    desc: "在校期间系统学习专业课程，参与课程项目与开发实践。",
+    desc: "2026 届毕业生，系统学习专业课程，参与课程项目与开发实践。",
   },
 ];
 
@@ -74,13 +74,23 @@ const MOMENTS = [
 /* ---------- 关于我 ---------- */
 const ABOUT = {
   intro:
-    "你好，我是李嘉翊，目前就读于三亚学院。喜欢写代码、折腾各种有趣的技术，也喜欢记录生活和思考。这个博客是我的一个小天地，用来沉淀学习笔记、分享想法，也欢迎你随时来聊。",
+    "你好，我是李嘉翊，2026 年毕业于三亚学院数据科学与大数据技术专业。喜欢写代码、折腾各种有趣的技术，也喜欢记录生活和思考。这个博客是我的一个小天地，用来沉淀学习笔记、分享想法，也欢迎你随时来聊。",
   interests: ["编程", "摄影", "阅读", "跑步"],
   contact: [
     { label: "邮箱", value: "18842096211@163.com", link: "mailto:18842096211@163.com" },
     { label: "GitHub", value: "github.com/Lijiayi-go", link: "https://github.com/Lijiayi-go" },
   ],
 };
+
+/* ---------- 好友信息（小嘉翊知识库） ---------- */
+const FRIENDS = [
+  { nickname: "阿鼠", realName: "郭思锐", school: "沈阳农业大学", degree: "研究生", major: "食品学院", direction: "软枣子方向", note: "阿鼠就是郭思锐一个人" },
+  { nickname: "ff / 峰峰", realName: "", school: "", degree: "", major: "", direction: "", note: "嘉翊的好朋友" },
+  { nickname: "jk", realName: "李康威", school: "华东交通大学", degree: "研究生", major: "", direction: "机械方向", note: "嘉翊的好朋友" },
+  { nickname: "阿闵", realName: "闵褀淏", school: "武汉大学", degree: "研究生", major: "", direction: "", note: "嘉翊的好朋友" },
+  { nickname: "帅夫", realName: "王帅夫", school: "中科院", degree: "研究生", major: "", direction: "", note: "嘉翊的好朋友" },
+  { nickname: "尧子", realName: "张智尧", school: "沈阳理工大学", degree: "研究生", major: "", direction: "", note: "嘉翊的好朋友" },
+];
 
 /* 暴露到全局（供 app.js / chat.js 使用） */
 window.SITE = SITE;
@@ -89,3 +99,4 @@ window.SKILLS = SKILLS;
 window.PROJECTS = PROJECTS;
 window.MOMENTS = MOMENTS;
 window.ABOUT = ABOUT;
+window.FRIENDS = FRIENDS;

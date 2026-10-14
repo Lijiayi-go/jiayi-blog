@@ -351,4 +351,23 @@ a { color: inherit; text-decoration: none; }
   .hero-meta { justify-content: center; }
   .project-grid { grid-template-columns: 1fr; }
   .tl-period { margin-left: 0; }
+
+  /* 移动端 AI 对话：底部抽屉式，可关闭、可再打开 */
+  #chat-widget {
+    right: 16px;
+    bottom: 16px;
+  }
+  .chat-panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    height: 62vh;
+    max-height: 62vh;
+    border-radius: 20px 20px 0 0;
+    border-bottom: none;
+  }
 }
