@@ -85,7 +85,7 @@ const ABOUT = {
 /* ---------- 好友信息（小嘉翊知识库） ---------- */
 const FRIENDS = [
   { nickname: "阿鼠", realName: "郭思锐", school: "沈阳农业大学", degree: "研究生", major: "食品学院", direction: "软枣子方向", note: "阿鼠就是郭思锐一个人" },
-  { nickname: "ff / 峰峰", realName: "", school: "", degree: "", major: "", direction: "", note: "嘉翊的好朋友" },
+  { nickname: "ff / 峰峰", realName: "李雲峰", school: "", degree: "", major: "", direction: "", note: "嘉翊的好朋友" },
   { nickname: "jk", realName: "李康威", school: "华东交通大学", degree: "研究生", major: "", direction: "机械方向", note: "嘉翊的好朋友" },
   { nickname: "阿闵", realName: "闵褀淏", school: "武汉大学", degree: "研究生", major: "", direction: "", note: "嘉翊的好朋友" },
   { nickname: "帅夫", realName: "王帅夫", school: "中科院", degree: "研究生", major: "", direction: "", note: "嘉翊的好朋友" },
