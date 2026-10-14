@@ -29,6 +29,7 @@ html, body {
   color: var(--text);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -337,6 +338,9 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
   animation: fadeUp 0.25s ease;
 }
+/* 关键修复：display:flex 会覆盖 hidden 属性的默认 display:none，
+   导致面板常开（手机端主页被挡一半）。显式声明才能真正隐藏 */
+.chat-panel[hidden] { display: none; }
 .chat-head {
   display: flex; align-items: center; gap: 12px;
   padding: 14px 16px;
@@ -351,14 +355,28 @@ a { color: inherit; text-decoration: none; }
 }
 .chat-head-title { font-weight: 700; font-size: 15px; }
 .chat-head-sub { font-size: 12px; opacity: 0.85; }
-.chat-clear {
-  margin-left: auto;
+.ch-close, .chat-clear {
   background: rgba(255, 255, 255, 0.2);
   border: none; color: #fff;
-  padding: 5px 12px; border-radius: 999px;
-  font-size: 12px; cursor: pointer;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease;
 }
-.chat-clear:hover { background: rgba(255, 255, 255, 0.32); }
+.ch-close:hover, .chat-clear:hover { background: rgba(255, 255, 255, 0.32); }
+/* 关闭按钮：靠在最右 */
+.ch-close {
+  margin-left: auto;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+/* 清空按钮：跟在关闭按钮后面 */
+.chat-clear {
+  margin-left: 0;
+  padding: 5px 12px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
 
 .chat-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
 .msg { max-width: 82%; padding: 10px 14px; border-radius: 16px; font-size: 14.5px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
@@ -401,10 +419,10 @@ a { color: inherit; text-decoration: none; }
 /* ---------- 桌面宠物「小嘉翊」 ---------- */
 #pet {
   position: fixed;
-  right: 90px;
-  bottom: 30px;
+  right: 96px;
+  bottom: 26px;
   z-index: 90;
-  width: 84px;
+  width: 116px;
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
@@ -412,7 +430,7 @@ a { color: inherit; text-decoration: none; }
 }
 #pet.pet-dragging { animation: none; cursor: grabbing; }
 #pet-img {
-  width: 84px;
+  width: 116px;
   height: auto;
   display: block;
   cursor: grab;
@@ -493,15 +511,22 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- 响应式 ---------- */
 @media (max-width: 720px) {
-  .hero { flex-direction: column; text-align: center; gap: 18px; }
+  /* 防止任何横向溢出 */
+  .page { padding: 20px 14px 96px; }
+  .topbar-inner { padding: 12px 14px; }
+  .card { padding: 20px 16px; }
+  .hero { flex-direction: column; text-align: center; gap: 16px; padding: 28px 18px; }
+  .hero-avatar { width: 84px; height: 84px; border-radius: 24px; }
+  .hero-info h1 { font-size: 26px; }
   .hero-meta { justify-content: center; }
   .project-grid { grid-template-columns: 1fr; }
   .tl-period { margin-left: 0; }
+  .footer { padding: 22px 16px 96px; }
 
   /* 移动端 AI 对话：底部抽屉式，可关闭、可再打开 */
   #chat-widget {
-    right: 16px;
-    bottom: 16px;
+    right: 14px;
+    bottom: 14px;
   }
   .chat-panel {
     position: fixed;
@@ -511,9 +536,19 @@ a { color: inherit; text-decoration: none; }
     top: auto;
     width: 100%;
     max-width: 100%;
-    height: 62vh;
-    max-height: 62vh;
+    height: 68vh;
+    max-height: 68vh;
     border-radius: 20px 20px 0 0;
     border-bottom: none;
   }
+  .chat-foot { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+
+  /* 移动端宠物：缩小一点，挂在对话球上方，不挡内容 */
+  #pet {
+    width: 92px;
+    right: 14px;
+    bottom: 86px;
+  }
+  #pet-img { width: 92px; }
+  .pet-bubble { min-width: 104px; max-width: 150px; font-size: 12px; }
 }

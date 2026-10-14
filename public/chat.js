@@ -11,6 +11,7 @@
   const input = document.getElementById("chat-input");
   const sendBtn = document.getElementById("chat-send");
   const clearBtn = document.getElementById("chat-clear");
+  const closeBtn = document.getElementById("chat-close");
 
   let generating = false;
   let controller = null;
@@ -34,6 +35,7 @@
         return `${f.nickname}（${detail}；${f.note}）`;
       })
       .join("；\n");
+    const features = (window.SITE_FEATURES || []).map((f, i) => `${i + 1}. ${f}`).join("\n");
     return (
       `你是「小嘉翊」，是「${window.SITE.name}」个人博客的 AI 助手，负责接待访客。\n` +
       `你可以基于以下真实信息回答关于博主的问题：\n` +
@@ -44,11 +46,14 @@
       `- 项目：${projs || "暂无"}\n` +
       `- 博主的个人优势：\n${strengths || "暂无"}\n` +
       `- 博主的好朋友：\n${friends || "暂无"}\n` +
+      `- 这个博客网站自带的功能：\n${features || "暂无"}\n` +
       `要求：回答简洁友好、用中文。\n` +
       `【问题分类】如果访客问的是关于博主本人或其好友的问题（姓名、身份、学校、经历、好友关系等）：` +
       `严格基于以上信息回答，绝不编造；信息里没有的，礼貌说明你不知道；` +
       `问到某位好友时只介绍被问到的那一位，不要主动罗列其他好友，也不要罗列好友清单；` +
       `被问到的人不在信息里时，直接说博主资料里没有这个人。\n` +
+      `如果访客问的是关于这个网站本身的功能（比如右下角的宠物、AI 对话、页面布局等）：` +
+      `基于上面的「网站自带的功能」信息回答，可以顺便邀请他去体验。\n` +
       `如果访客问的是技术问题（编程、Go、RAG、Agent、架构等）或通用知识：` +
       `不用参考上面的人物信息，直接以你自身的知识专业地回答。`
     );
@@ -222,4 +227,10 @@
   });
 
   clearBtn.addEventListener("click", clearChat);
+
+  /* 关闭对话面板 */
+  closeBtn.addEventListener("click", () => {
+    panel.hidden = true;
+    widget.classList.remove("open");
+  });
 })();
