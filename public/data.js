@@ -82,6 +82,16 @@ const ABOUT = {
   ],
 };
 
+/* ---------- 个人优势（首页） ---------- */
+const STRENGTHS = [
+  "熟练运用 AI 智能体辅助研发，掌握 VibeCoding 工作框架，可沉淀标准化开发 skill，有效提升研发交付效率。",
+  "精通 RAG 全链路技术，可独立设计混合检索、重排、语义分块方案，具备垂直领域知识库落地与召回效果优化经验。",
+  "熟练 Multi-Agent 分层架构设计，掌握 ReAct 推理、工具调用、MCP 协议，可完成智能体编排与长对话记忆管理。",
+  "精通 Go 语言底层原理，熟悉 GMP 调度、GC 机制与并发编程，掌握无锁数据结构设计，具备扎实的系统级编码功底。",
+  "具备分布式系统实战经验，精通 MySQL 索引优化、Redis 缓存架构、消息队列中间件，熟练落地分布式锁与幂等设计。",
+  "Go 后端研发经验，深耕 AI Agent 与企业级 RAG 工程化落地，参与多个智能体项目从 0 到 1 搭建，具备全链路交付能力。",
+];
+
 /* ---------- 好友信息（小嘉翊知识库） ---------- */
 const FRIENDS = [
   { nickname: "阿鼠", realName: "郭思锐", school: "沈阳农业大学", degree: "研究生", major: "食品学院", direction: "软枣子方向", note: "阿鼠就是郭思锐一个人" },
@@ -100,6 +110,7 @@ const FRIENDS = [
 window.SITE = SITE;
 window.EDUCATION = EDUCATION;
 window.SKILLS = SKILLS;
+window.STRENGTHS = STRENGTHS;
 window.PROJECTS = PROJECTS;
 window.MOMENTS = MOMENTS;
 window.ABOUT = ABOUT;

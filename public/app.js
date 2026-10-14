@@ -35,6 +35,12 @@ function renderHome() {
 
   const skills = SKILLS.map((s) => `<span class="skill-tag">${esc(s)}</span>`).join("");
 
+  const strengths = (window.STRENGTHS || []).map((s, i) => `
+    <div class="strength-item">
+      <span class="strength-num">${i + 1}</span>
+      <div class="strength-text">${esc(s)}</div>
+    </div>`).join("");
+
   const projects = PROJECTS.map(
     (p) => `
       <div class="project">
@@ -64,6 +70,8 @@ function renderHome() {
     ${card("教育经历", `<div class="timeline">${edu}</div>`)}
     <div style="height:18px"></div>
     ${card("技能栈", `<div class="skill-tags">${skills}</div>`)}
+    <div style="height:18px"></div>
+    ${card("个人优势", `<div class="strength-list">${strengths}</div>`)}
     <div style="height:18px"></div>
     ${card("项目 / 作品", `<div class="project-grid">${projects}</div>`)}
   `;
