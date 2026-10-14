@@ -183,6 +183,32 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ---------- 个人优势 ---------- */
+.section-title.collapsible {
+  cursor: pointer;
+  user-select: none;
+  justify-content: flex-start;
+}
+.collapse-arrow {
+  margin-left: auto;
+  font-size: 14px;
+  color: var(--text-3);
+  transition: transform 0.2s ease;
+}
+.collapse-arrow.open { transform: rotate(180deg); }
+.collapse-wrap {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.28s ease, opacity 0.22s ease;
+  opacity: 1;
+}
+.collapse-wrap.collapsed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+.collapse-wrap > * {
+  overflow: hidden;
+  min-height: 0;
+}
 .strength-list { display: flex; flex-direction: column; gap: 12px; }
 .strength-item {
   display: flex; align-items: flex-start; gap: 12px;

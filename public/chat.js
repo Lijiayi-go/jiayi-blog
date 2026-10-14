@@ -25,6 +25,7 @@
       .join("；");
     const skills = (window.SKILLS || []).map((s) => (typeof s === "string" ? s : s.name)).join("、");
     const projs = (window.PROJECTS || []).map((p) => p.name).join("、");
+    const strengths = (window.STRENGTHS || []).map((s, i) => `${i + 1}. ${s}`).join("\n");
     const friends = (window.FRIENDS || [])
       .map((f) => {
         const detail = [f.realName, f.school, f.degree, f.major, f.direction]
@@ -41,6 +42,7 @@
       `- 教育经历：${edu || "暂无"}（博主已毕业，是 2026 届毕业生，不是在校生）\n` +
       `- 技能：${skills || "暂无"}\n` +
       `- 项目：${projs || "暂无"}\n` +
+      `- 博主的个人优势：\n${strengths || "暂无"}\n` +
       `- 博主的好朋友：\n${friends || "暂无"}\n` +
       `要求：回答简洁友好、用中文；只基于以上信息作答，不要编造博主没有的经历或好友；\n` +
       `当访客问到上述某个好友时，只介绍被问到的那一位，不要主动罗列其他好友；\n` +

@@ -67,11 +67,19 @@ function renderHome() {
         </div>
       </div>
     </div>
+    <section class="card">
+      <h2 class="section-title collapsible" data-toggle="strength-body">
+        个人优势
+        <span class="collapse-arrow" id="strength-arrow">▾</span>
+      </h2>
+      <div id="strength-body" class="collapse-wrap collapsed">
+        <div class="strength-list">${strengths}</div>
+      </div>
+    </section>
+    <div style="height:18px"></div>
     ${card("教育经历", `<div class="timeline">${edu}</div>`)}
     <div style="height:18px"></div>
     ${card("技能栈", `<div class="skill-tags">${skills}</div>`)}
-    <div style="height:18px"></div>
-    ${card("个人优势", `<div class="strength-list">${strengths}</div>`)}
     <div style="height:18px"></div>
     ${card("项目 / 作品", `<div class="project-grid">${projects}</div>`)}
   `;
@@ -119,6 +127,19 @@ const routes = {
   about: renderAbout,
 };
 
+/* 可折叠块：点击标题切换展开/收起 */
+function bindCollapsibles() {
+  document.querySelectorAll("[data-toggle]").forEach((el) => {
+    el.addEventListener("click", () => {
+      const body = document.getElementById(el.dataset.toggle);
+      const arrow = el.querySelector(".collapse-arrow");
+      if (!body) return;
+      body.classList.toggle("collapsed");
+      if (arrow) arrow.classList.toggle("open", !body.classList.contains("collapsed"));
+    });
+  });
+}
+
 function currentRoute() {
   return location.hash.replace(/^#\//, "") || "home";
 }
@@ -126,6 +147,7 @@ function currentRoute() {
 function render(route) {
   const r = routes[route] ? route : "home";
   app.innerHTML = routes[r]();
+  bindCollapsibles();
   document.querySelectorAll(".nav-link").forEach((a) => {
     a.classList.toggle("active", a.dataset.route === r);
   });
