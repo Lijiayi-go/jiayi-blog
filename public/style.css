@@ -398,6 +398,83 @@ a { color: inherit; text-decoration: none; }
 .chat-send:hover { transform: scale(1.05); }
 .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* ---------- 桌面宠物「小嘉翊」 ---------- */
+#pet {
+  position: fixed;
+  right: 90px;
+  bottom: 30px;
+  z-index: 90;
+  width: 84px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  animation: pet-float 3s ease-in-out infinite;
+}
+#pet.pet-dragging { animation: none; cursor: grabbing; }
+#pet-img {
+  width: 84px;
+  height: auto;
+  display: block;
+  cursor: grab;
+  filter: drop-shadow(0 8px 16px rgba(79, 110, 247, 0.35));
+  transition: transform 0.15s ease;
+}
+#pet-img:hover { transform: scale(1.05); }
+#pet.pet-happy #pet-img { animation: pet-bounce 0.5s ease; }
+#pet.pet-question #pet-img { animation: pet-shake 0.6s ease; }
+#pet.pet-sleep #pet-img { animation: pet-breathe 2.4s ease-in-out infinite; }
+@keyframes pet-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes pet-bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-22px) scale(1.08); }
+}
+@keyframes pet-shake {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
+}
+@keyframes pet-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(0.96); opacity: 0.75; }
+}
+.pet-bubble {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 120px;
+  max-width: 180px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text);
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
+  pointer-events: none;
+}
+.pet-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #fff;
+}
+.pet-bubble.pop { animation: bubble-pop 0.28s ease; }
+@keyframes bubble-pop {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.85); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 720px) {
   .hero { flex-direction: column; text-align: center; gap: 18px; }
