@@ -100,8 +100,12 @@ exports.handler = async (event, context) => {
     req = {};
   }
 
-  const pathname = (req.path || req.rawPath || "/").split("?")[0];
-  const method = (req.method || "GET").toUpperCase();
+  const pathname = (req.rawPath || req.path || "/").split("?")[0];
+  /* FC 3.0 的 method 在 requestContext.http.method 里，兼容多种格式 */
+  const method = (
+    (req.requestContext && req.requestContext.http && req.requestContext.http.method) ||
+    req.method || "GET"
+  ).toUpperCase();
 
   /* ---------- AI 接口 ---------- */
   if (pathname === "/api/chat" && method === "POST") {
