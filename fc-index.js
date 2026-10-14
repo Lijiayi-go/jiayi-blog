@@ -134,7 +134,10 @@ exports.handler = async (event, context) => {
     /* 一次性返回完整文本；前端会做「模拟打字」效果 */
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json; charset=utf-8" },
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Disposition": "inline",
+      },
       body: JSON.stringify({ content: result.content }),
     };
   }
@@ -156,11 +159,20 @@ exports.handler = async (event, context) => {
   /* 纯文本类直接返回；二进制（图片等）需 base64 */
   const isText = /^(text\/|application\/(json|javascript)|image\/svg)/.test(contentType);
   if (isText) {
-    return { statusCode: 200, headers: { "Content-Type": contentType }, body: data.toString("utf-8") };
+    /* 关键：FC 默认会给响应加 Content-Disposition: attachment，
+       导致浏览器把页面当文件下载。这里显式覆盖为 inline。 */
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": contentType,
+        "Content-Disposition": "inline",
+      },
+      body: data.toString("utf-8"),
+    };
   }
   return {
     statusCode: 200,
-    headers: { "Content-Type": contentType },
+    headers: { "Content-Type": contentType, "Content-Disposition": "inline" },
     body: data.toString("base64"),
     isBase64Encoded: true,
   };
