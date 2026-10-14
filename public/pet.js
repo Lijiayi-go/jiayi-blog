@@ -43,6 +43,7 @@
   let idleTimer = null;
   let tempTimer = null;
   let clickTimes = [];
+  let blinkTimer = null;
 
   function setState(s) {
     if (state === s) return;
@@ -51,6 +52,18 @@
     pet.classList.toggle("pet-sleep", s === 3);
     pet.classList.toggle("pet-question", s === 4);
     pet.classList.toggle("pet-happy", s === 2);
+  }
+
+  /* ---------- 眨眼：待机时每隔几秒快速切一次「半眯眼」 ---------- */
+  function scheduleBlink() {
+    clearTimeout(blinkTimer);
+    blinkTimer = setTimeout(() => {
+      if (state === 1 || state === 2) {
+        pet.classList.add("pet-blink");
+        setTimeout(() => pet.classList.remove("pet-blink"), 180);
+      }
+      scheduleBlink();
+    }, 2600 + Math.random() * 2600);
   }
 
   function resetIdle() {
@@ -130,8 +143,15 @@
       const dx = cx - startX;
       const dy = cy - startY;
       if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
-        dragMoved = true;
-        pet.classList.add("pet-dragging");
+        if (!dragMoved) {
+          dragMoved = true;
+          pet.classList.add("pet-dragging");
+          /* 拎起来：轻微放大 + 根据横向速度倾斜 */
+          img.style.transform = "scale(1.12)";
+        }
+        /* 根据拖动方向倾斜（被拎着甩动） */
+        const tilt = Math.max(-18, Math.min(18, dx * 0.35));
+        img.style.rotate = tilt + "deg";
       }
       /* 限制在视口内 */
       const maxX = window.innerWidth - pet.offsetWidth;
@@ -142,6 +162,13 @@
     }
     function onUp() {
       pet.classList.remove("pet-dragging");
+      /* 松手回弹：缩放/倾斜复位由 CSS transition 平滑过渡 */
+      img.style.transform = "";
+      img.style.rotate = "";
+      /* 落地小弹跳 */
+      pet.classList.remove("pet-land");
+      void pet.offsetWidth;
+      pet.classList.add("pet-land");
       savePos();
       window.removeEventListener(isTouch ? "touchmove" : "mousemove", isTouch ? onMoveTouch : onMove);
       window.removeEventListener(isTouch ? "touchend" : "mouseup", onUp);
@@ -165,6 +192,7 @@
   /* ---------- 初始化 ---------- */
   loadPos();
   resetIdle(); /* 15 秒不点 → 睡觉 */
+  scheduleBlink(); /* 待机眨眼 */
 
   /* 页面任何交互都算「有人理它」，重置睡觉计时 */
   ["click", "keydown", "scroll", "touchstart"].forEach((ev) =>
