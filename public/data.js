@@ -9,6 +9,7 @@ const SITE = {
   email: "18842096211@163.com",
   github: "https://github.com/Lijiayi-go",
   motto: "保持好奇，持续构建。",
+  avatar: "./avatar.jpg",
 };
 
 /* ---------- 教育经历（首页时间轴） ---------- */

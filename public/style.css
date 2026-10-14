@@ -127,6 +127,12 @@ a { color: inherit; text-decoration: none; }
   display: flex; align-items: center; justify-content: center;
   font-size: 40px; font-weight: 700;
   box-shadow: 0 12px 30px rgba(79, 110, 247, 0.4);
+  overflow: hidden;
+}
+.hero-avatar-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .hero-info h1 { font-size: 30px; font-weight: 800; letter-spacing: 0.5px; }
 .hero-role { color: var(--accent); font-weight: 600; margin: 4px 0 8px; }

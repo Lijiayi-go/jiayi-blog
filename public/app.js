@@ -51,10 +51,13 @@ function renderHome() {
   ).join("");
 
   const avatarChar = (SITE.name || "我").trim().charAt(0) || "我";
+  const avatarHtml = SITE.avatar
+    ? `<img class="hero-avatar-img" src="${esc(SITE.avatar)}" alt="${esc(SITE.name)}的头像" />`
+    : esc(avatarChar);
 
   return `
     <div class="hero">
-      <div class="hero-avatar">${esc(avatarChar)}</div>
+      <div class="hero-avatar">${avatarHtml}</div>
       <div class="hero-info">
         <h1>${esc(SITE.name)}</h1>
         <div class="hero-role">${esc(SITE.role)}</div>
