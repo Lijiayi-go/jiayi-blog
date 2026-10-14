@@ -46,6 +46,27 @@
     return div;
   }
 
+  /* 模拟打字机效果：把一次性文本逐字渲染（FC 环境无 SSE 流时用） */
+  function typewrite(el, text) {
+    return new Promise((resolve) => {
+      let i = 0;
+      const step = () => {
+        if (i >= text.length) {
+          el.textContent = text;
+          body.scrollTop = body.scrollHeight;
+          resolve();
+          return;
+        }
+        /* 每次多吐几个字符，兼顾速度与流畅 */
+        i = Math.min(text.length, i + 2);
+        el.textContent = text.slice(0, i);
+        body.scrollTop = body.scrollHeight;
+        setTimeout(step, 12);
+      };
+      step();
+    });
+  }
+
   function greet() {
     addMessage(
       "ai",
@@ -90,31 +111,42 @@
         throw new Error(msg);
       }
 
-      /* 解析 SSE 流，逐段渲染 */
-      const reader = resp.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const parts = buffer.split("\n\n");
-        buffer = parts.pop();
-        for (const part of parts) {
-          const line = part.trim();
-          if (!line.startsWith("data:")) continue;
-          const data = line.slice(5).trim();
-          if (data === "[DONE]") continue;
-          try {
-            const json = JSON.parse(data);
-            const delta = json.choices && json.choices[0] && json.choices[0].delta;
-            if (delta && delta.content) {
-              fullText += delta.content;
-              answerDiv.textContent = fullText;
-              body.scrollTop = body.scrollHeight;
-            }
-          } catch (e) {}
+      /* 判断后端类型：SSE 流式 or 一次性 JSON（FC 环境返回 JSON）
+         - Content-Type 含 text/event-stream → 走流式解析
+         - 否则尝试按 JSON 一次性解析，并做前端模拟打字 */
+      const contentType = resp.headers.get("Content-Type") || "";
+      if (contentType.indexOf("text/event-stream") !== -1) {
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const parts = buffer.split("\n\n");
+          buffer = parts.pop();
+          for (const part of parts) {
+            const line = part.trim();
+            if (!line.startsWith("data:")) continue;
+            const data = line.slice(5).trim();
+            if (data === "[DONE]") continue;
+            try {
+              const json = JSON.parse(data);
+              const delta = json.choices && json.choices[0] && json.choices[0].delta;
+              if (delta && delta.content) {
+                fullText += delta.content;
+                answerDiv.textContent = fullText;
+                body.scrollTop = body.scrollHeight;
+              }
+            } catch (e) {}
+          }
         }
+      } else {
+        /* FC 一次性 JSON 返回：{ content: "..." }，前端做模拟打字 */
+        const j = await resp.json();
+        const text = (j && j.content) || "";
+        fullText = text;
+        await typewrite(answerDiv, text);
       }
     } catch (err) {
       if (err && err.name === "AbortError") {
