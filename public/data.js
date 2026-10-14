@@ -103,7 +103,7 @@ const FRIENDS = [
   { nickname: "尧子", realName: "张智尧", school: "沈阳理工大学", degree: "研究生", major: "", direction: "", note: "嘉翊的好朋友" },
   { nickname: "李梓恒", realName: "李梓恒", school: "三亚学院（本科）→ 新西兰（研究生）", degree: "本科毕业于三亚学院，现于新西兰读研究生", major: "", direction: "", note: "新西兰人，本科期间来三亚学院就读，本科毕业回国（新西兰）读研究生，嘉翊的好朋友" },
   { nickname: "佳姐", realName: "宋志佳", school: "三亚学院", degree: "本科", major: "", direction: "", note: "没有佳姐，李嘉翊本科都毕业不了；嘉翊的好朋友" },
-  { nickname: "py", realName: "王鹏宇", school: "", degree: "", major: "", direction: "", note: "专升本上岸；和阿鼠、尧子都是好朋友，嘉翊的好朋友" },
+  { nickname: "py", realName: "王鹏宇", school: "", degree: "", major: "", direction: "", note: "专升本上岸；和阿鼠、尧子都是好朋友，嘉翊的好朋友。喜欢玩《无畏契约》，爱玩火男，经常闪队友，战斗评分有时是 0 分（这些是朋友们说的，不是博主说的）" },
   { nickname: "犀牛", realName: "胡龙斌", school: "三亚学院", degree: "", major: "", direction: "", note: "三亚学院的一头犀牛，嘉翊的好朋友" },
 ];
 
